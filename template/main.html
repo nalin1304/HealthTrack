@@ -1,0 +1,118 @@
+<html>
+  <head>
+    <title>HealthTrack</title>
+  </head>
+  <body>
+    <div class="header">
+      <h1>HealthTrack</h1>
+    </div>
+    <center>
+    <div class="filters">
+        <label for="class"><b>Class:</b></label>
+        <select class="class" name="class" id="class" onclick="filter_class()">
+          <option value="none" selected disabled hidden>None</option>
+          <option value="9A">9A</option>
+          <option value="9B">9B</option>
+          <option value="9C">9C</option>
+          <option value="9D">9D</option>
+          <option value="10A">10A</option>
+          <option value="10B">10B</option>
+          <option value="10C">10C</option>
+          <option value="10D">10D</option>
+        </select>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <label for="age"><b>Age:</b></label>
+        <select class="age" name="age" id="age" onclick="fliter_age()">
+          <option value="none" selected disabled hidden>None</option>
+          <option value="12">12</option> 
+          <option value="13">13</option> 
+          <option value="14">14</option> 
+          <option value="15">15</option> 
+          <option value="16">16</option> 
+          <option value="17">17</option> 
+        </select>
+    </div>
+  </center>
+    <div class="thumbnail-data">
+      {% for student in students %}
+      <div class="thumbnail">
+        <h2>{{student["name"]}}</h3>
+        <span>Class: <b>{{student["class"]}}</b></span><br>
+        <span>Age: <b>{{student["age"]}}</b></span><br>
+        <span>Height: <b>{{student["height"]}}"</b></span><br>
+        <span>Weight: <b>{{student["weight"]}} kg</b></span>
+      </div>
+      {% endfor %}
+    </div>
+  </body>
+  <style>
+    body {
+      font-family: ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;
+      background-color: #000000;
+      color: white;
+    }
+    .header {
+      text-align: center;
+    }
+
+    .thumbnail {
+      border-radius: 10px;
+      width: 300px;
+      height: 200px;
+      padding: 5px;
+      padding-left: 30px;
+      margin: 10px;
+      background-color: #151515;
+      color: #FFFFFF;
+      transition: background-color 0.5s ease;
+    }
+    .thumbnail:hover {
+      background-color: #202020;
+    }
+    .filters {
+      padding-left: 30px;
+      padding-right: 30px;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      border-radius: 10px;
+      width: fit-content;
+      border: 2px solid #151515;
+    }
+    .filters select {
+      background-color: #151515;
+      color: #FFFFFF;
+      border: none;
+      border-radius: 5px;
+      padding: 5px;
+      font-size: medium;
+    }
+    .thumbnail-data {
+      display: grid; /* Use grid layout */
+      grid-template-columns: repeat(auto-fit, minmax(300px, 0.75fr));
+      grid-column-gap: 25px;
+      grid-row-gap: 25px;
+    }
+  </style>
+  <script>
+    function filter_class() {
+        standard=document.getElementById("class").value;
+        if (standard!="none") {
+          window.location.href = "/?class="+standard;
+        }
+        age = document.getElementById("age").value;
+        if (age!="none") {
+          window.location.href = "/?age="+age+"&class="+standard;
+        }
+    }
+    function filter_age() {
+        age = document.getElementById("age").value;
+        if (age!="none") {
+          window.location.href = "/?age="+age;
+        }
+        standard=document.getElementById("class").value;
+        if (standard!="none") {
+          window.location.href = "/?class="+standard+"&age="+age;
+        }
+    }
+  </script>
+</html>
