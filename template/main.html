@@ -9,8 +9,8 @@
     <center>
     <div class="filters">
         <label for="class"><b>Class:</b></label>
-        <select class="class" name="class" id="class" onclick="filter_class()">
-          <option value="none" selected disabled hidden>None</option>
+        <select class="class" name="class" id="class" onchange="filter_class()">
+          <option value="none" selected disabled>None</option>
           <option value="9A">9A</option>
           <option value="9B">9B</option>
           <option value="9C">9C</option>
@@ -22,8 +22,8 @@
         </select>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <label for="age"><b>Age:</b></label>
-        <select class="age" name="age" id="age" onclick="fliter_age()">
-          <option value="none" selected disabled hidden>None</option>
+        <select class="age" name="age" id="age" onchange="filter_age()">
+          <option value="none" selected disabled>None</option>
           <option value="12">12</option> 
           <option value="13">13</option> 
           <option value="14">14</option> 
@@ -35,7 +35,7 @@
   </center>
     <div class="thumbnail-data">
       {% for student in students %}
-      <div class="thumbnail">
+      <div class="thumbnail" onclick="popup_student_data(); ">
         <h2>{{student["name"]}}</h3>
         <span>Class: <b>{{student["class"]}}</b></span><br>
         <span>Age: <b>{{student["age"]}}</b></span><br>
@@ -44,6 +44,19 @@
       </div>
       {% endfor %}
     </div>
+    <center>
+    <div class="popup-data">
+      <div class="popup">
+        <h2>Student Data</h2>
+        <h3 class="name">Name: <b></b></h3><br>
+        <span class="class">Class: <b></b></span><br>
+        <span class="age">Age: <b></b></span><br>
+        <span class="height">Height: <b>"</b></span><br>
+        <span class="weight">Weight: <b> kg</b></span><br>
+        <span class="bmi">BMI: <b> </b></span><br>
+        <span class="bmi-category">BMI category: <b class="bmi-category-value"></b></span>
+    </div>
+  </center>
   </body>
   <style>
     body {
@@ -88,31 +101,135 @@
     }
     .thumbnail-data {
       display: grid; /* Use grid layout */
-      grid-template-columns: repeat(auto-fit, minmax(300px, 0.75fr));
+      grid-template-columns: repeat(4, 1fr);
       grid-column-gap: 25px;
       grid-row-gap: 25px;
+      justify-items: center;
+    }
+    @media (max-width: 1300px) {
+      .thumbnail-data {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    @media (max-width: 950px) {
+      .thumbnail-data {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .thumbnail-data {
+        grid-template-columns: repeat(1, 1fr);
+      }
+    }
+    .popup-data {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      justify-items: center;
+      align-items: center;
+      background-color: rgba(0, 0, 0, 0.3);
+    }
+    .popup {
+      background-color: #151515;
+      color: #FFFFFF;
+      border-radius: 10px;
+      padding: 20px;
+      width: 25%;
+      height: 80%;
     }
   </style>
   <script>
     function filter_class() {
         standard=document.getElementById("class").value;
+        age = document.getElementById("age").value;
         if (standard!="none") {
           window.location.href = "/?class="+standard;
         }
-        age = document.getElementById("age").value;
-        if (age!="none") {
+        else if (age!="none") {
           window.location.href = "/?age="+age+"&class="+standard;
+        }
+        else {
+          window.location.href = "/";
         }
     }
     function filter_age() {
         age = document.getElementById("age").value;
+        standard=document.getElementById("class").value;
         if (age!="none") {
           window.location.href = "/?age="+age;
         }
-        standard=document.getElementById("class").value;
-        if (standard!="none") {
+        else if (standard!="none") {
           window.location.href = "/?class="+standard+"&age="+age;
         }
+        else {
+          window.location.href = "/";
+        }
     }
+    var urlParams = new URLSearchParams(window.location.search);
+
+    // Now you can access the parameters directly 
+    var class_value = urlParams.get('class');
+    var age_value = urlParams.get('age');
+
+    if (class_value!=null) {
+      classSelect = document.getElementById("class");
+      document.getElementById("class").value = class_value;
+
+      for (var i = 0; i < classSelect.options.length; i++) {
+        var option = classSelect.options[i];
+        if (option.disabled == true) {
+          option.disabled = false;
+        }
+        if (option.value === class_value) {
+          // Disable the option if its value matches class_value
+          option.disabled = true;
+          break;
+        }
+      }
+    }
+    if (age_value!=null) {
+      document.getElementById("age").value = age_value;
+      ageSelect = document.getElementById("age");
+
+      for (var i = 0; i < ageSelect.options.length; i++) {
+        var option = ageSelect.options[i];
+        if (option.disabled == true) {
+          option.disabled = false;
+        }
+        if (option.value === age_value) {
+          // Disable the option if its value matches age_value
+          option.disabled = true;
+          break;
+        }
+    }
+  }
+  function popup_student_data(data) {
+    document.getElementsByClassName("popup-data")[0].style.display = "grid";
+    document.getElementsByClassName("name")[0].innerHTML = "Name: <b>"+data["name"]+"</b>";
+    document.getElementsByClassName("class")[0].innerHTML = "Class: <b>"+data["class"]+"</b>";
+    document.getElementsByClassName("age")[0].innerHTML = "Age: <b>"+data["age"]+"</b>";
+    document.getElementsByClassName("height")[0].innerHTML = "Height: <b>"+data["height"]+"\"</b>";
+    document.getElementsByClassName("weight")[0].innerHTML = "Weight: <b>"+data["weight"]+" kg</b>";
+    document.getElementsByClassName("bmi")[0].innerHTML = "BMI: <b>"+data["bmi"]+"</b>";
+    document.getElementsByClassName("bmi-category-value")[0].innerHTML = data["bmi-category"];
+    if (data["bmi-category"]=="Underweight") {
+      document.getElementsByClassName("bmi-category-value")[0].style.color = "#FF0000";
+    }
+    else if (data["bmi-category"]=="Normal weight") {
+      document.getElementsByClassName("bmi-category-value")[0].style.color = "#00FF00";
+    }
+    else if (data["bmi-category"]=="Overweight") {
+      document.getElementsByClassName("bmi-category-value")[0].style.color = "#FFFF00";
+    }
+    else if (data["bmi-category"]=="Obesity") {
+      document.getElementsByClassName("bmi-category-value")[0].style.color = "#FF0000";
+    }
+  }
   </script>
 </html>
