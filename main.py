@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request
 import pymongo
 
-app = Flask(" ",template_folder=r'C:\Arjit\Arjit\HealthTrack\template')
+app = Flask(" ",template_folder=r"C:\Users\Vrushali-PC\Downloads\HealthTrack-main\HealthTrack-main\template")
 client = pymongo.MongoClient("mongodb+srv://HealthTrack:HealthTrack@cluster0.azdhcau.mongodb.net/?retryWrites=true&w=majority")
 db = client["HealthTrack"]
 student_data = db["student_data"]
@@ -16,6 +16,6 @@ def index():
         students = student_data.find({"age": age_value})
     else:
         students = student_data.find()
-    return render_template("main.html", students=students)
+    return render_template("main.html", students=list(students))
 
 app.run(host="0.0.0.0", port=8080, debug=True)

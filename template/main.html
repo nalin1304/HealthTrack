@@ -35,7 +35,7 @@
   </center>
     <div class="thumbnail-data">
       {% for student in students %}
-      <div class="thumbnail" onclick="popup_student_data(); ">
+      <div class="thumbnail" onclick="popup_student_data(`{{ student['_id'] }}`); ">
         <h2>{{student["name"]}}</h3>
         <span>Class: <b>{{student["class"]}}</b></span><br>
         <span>Age: <b>{{student["age"]}}</b></span><br>
@@ -49,8 +49,8 @@
       <div class="popup">
         <h2>Student Data</h2>
         <h3 class="name">Name: <b></b></h3><br>
-        <span class="class">Class: <b></b></span><br>
-        <span class="age">Age: <b></b></span><br>
+        <span class="class_popup">Class: <b></b></span><br>
+        <span class="age_popup">Age: <b></b></span><br>
         <span class="height">Height: <b>"</b></span><br>
         <span class="weight">Weight: <b> kg</b></span><br>
         <span class="bmi">BMI: <b> </b></span><br>
@@ -209,25 +209,38 @@
         }
     }
   }
+    var students = {{students|safe|replace("ObjectId","")}}
   function popup_student_data(data) {
+    console.log(students);
+    for (var i = 0; i < students.length; i++) {
+      var student = students[i];
+      console.log(student["_id"] == data);
+      if (student["_id"] == data) {
+        var dict_data = student
+        console.log(dict_data)
+        break;
+      }
+    }; 
+    console.log(dict_data);
+    console.log(data);
     document.getElementsByClassName("popup-data")[0].style.display = "grid";
-    document.getElementsByClassName("name")[0].innerHTML = "Name: <b>"+data["name"]+"</b>";
-    document.getElementsByClassName("class")[0].innerHTML = "Class: <b>"+data["class"]+"</b>";
-    document.getElementsByClassName("age")[0].innerHTML = "Age: <b>"+data["age"]+"</b>";
-    document.getElementsByClassName("height")[0].innerHTML = "Height: <b>"+data["height"]+"\"</b>";
-    document.getElementsByClassName("weight")[0].innerHTML = "Weight: <b>"+data["weight"]+" kg</b>";
-    document.getElementsByClassName("bmi")[0].innerHTML = "BMI: <b>"+data["bmi"]+"</b>";
-    document.getElementsByClassName("bmi-category-value")[0].innerHTML = data["bmi-category"];
-    if (data["bmi-category"]=="Underweight") {
+    document.getElementsByClassName("name")[0].innerHTML = "Name: <b>"+dict_data["name"]+"</b>";
+    document.getElementsByClassName("class_popup")[0].innerHTML = "Class: <b>"+dict_data["class"]+"</b>";
+    document.getElementsByClassName("age_popup")[0].innerHTML = "Age: <b>"+dict_data["age"]+"</b>";
+    document.getElementsByClassName("height")[0].innerHTML = "Height: <b>"+dict_data["height"]+"\"</b>";
+    document.getElementsByClassName("weight")[0].innerHTML = "Weight: <b>"+dict_data["weight"]+" kg</b>";
+    document.getElementsByClassName("bmi")[0].innerHTML = "BMI: <b>"+dict_data["bmi"]+"</b>";
+    document.getElementsByClassName("bmi-category-value")[0].innerHTML = dict_data["bmi_category"];
+    if (dict_data["bmi_category"]=="Underweight") {
       document.getElementsByClassName("bmi-category-value")[0].style.color = "#FF0000";
     }
-    else if (data["bmi-category"]=="Normal weight") {
+    else if (dict_data["bmi_category"]=="Normal") {
       document.getElementsByClassName("bmi-category-value")[0].style.color = "#00FF00";
     }
-    else if (data["bmi-category"]=="Overweight") {
+    else if (dict_data["bmi_category"]=="Overweight") {
       document.getElementsByClassName("bmi-category-value")[0].style.color = "#FFFF00";
     }
-    else if (data["bmi-category"]=="Obesity") {
+    else if (dict_data["bmi_category"]=="Obesity") {
       document.getElementsByClassName("bmi-category-value")[0].style.color = "#FF0000";
     }
   }

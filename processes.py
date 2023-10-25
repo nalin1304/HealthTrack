@@ -68,4 +68,4 @@ def avg_data_class(standard):
   db["average_data"].update_one({"class":standard},{"$set":{"avg_height":avg_height,"avg_weight":avg_weight,"avg_bmi":avg_bmi, "avg_bmi_category":avg_bmi_category}}, upsert=True)
   return avg_height
 
-print(avg_data_class("8th"))
+bmi_calculator()
