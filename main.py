@@ -6,8 +6,8 @@ client = pymongo.MongoClient("mongodb+srv://HealthTrack:HealthTrack@cluster0.azd
 db = client["HealthTrack"]
 student_data = db["student_data"]
 
-@app.route("/")
-def index():
+@app.route("/dashboard")
+def dashboard():
     class_value = request.args.get("class")
     age_value = request.args.get("age")
     if class_value:
@@ -17,5 +17,9 @@ def index():
     else:
         students = student_data.find()
     return render_template("main.html", students=list(students))
+
+@app.route("/auth", methods=["GET","POST"])
+def auth():
+    return render_template("auth.html")
 
 app.run(host="0.0.0.0", port=8080, debug=True)
