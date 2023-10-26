@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request
 import pymongo
 
-app = Flask(" ",template_folder=r"C:\Users\Vrushali-PC\Downloads\HealthTrack-main\HealthTrack-main\template")
+app = Flask(" ",template_folder=r"C:\Users\Suvarna\Documents\HealthTrack\template", static_folder=r"C:\Users\Suvarna\Documents\HealthTrack\static")
 client = pymongo.MongoClient("mongodb+srv://HealthTrack:HealthTrack@cluster0.azdhcau.mongodb.net/?retryWrites=true&w=majority")
 db = client["HealthTrack"]
 student_data = db["student_data"]
