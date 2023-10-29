@@ -25,6 +25,8 @@ def dashboard():
 
 @app.route("/auth", methods=["GET","POST"])
 def auth():
+    if session.get("user") == "admin":
+        return redirect("/dashboard")
     if request.method == "POST":
         user = request.form.get("user")
         pwd= request.form.get("pass")
