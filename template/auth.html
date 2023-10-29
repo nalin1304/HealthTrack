@@ -1,0 +1,76 @@
+<html>
+    <head>
+
+    </head>
+    <body>
+        <div class="login-box">
+            <div class="login">
+            <center>
+                    <h3>Login</h3>
+                    <form action="/auth" method="post">
+                        <input type="text" class="user" name="user" id="user" placeholder="username"><br><br>
+                        <input type="password" class="pass" name="pass" id="pass" placeholder="password"><br><br>
+                        <input type="submit" class="login-btn" name="login-btn" id="login-btn" value="LogIn">
+                    </form>
+                </center>
+            </div>
+        </div>
+    </body>
+    <style>
+        body {
+            font-family: ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;
+            background-image:  url("/static/blue-white background.webp");
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+            backdrop-filter: blur(30px);
+            color: white;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .login-box{
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            width: 400px;
+            height: 400px;
+            background: #68B1E4;
+            padding: 10px;
+        }
+        .login-box h3 {
+            font-size: 50px;
+        }
+        .login .user {
+            background-color: rgba(255, 255, 255, 0.5);
+            border: 0;
+            border-radius: 5px;
+            border-bottom: 2px solid #FFFFFF;
+            font-size: 20px;
+            padding: 4px;
+        }
+        .login .pass {
+            background-color: rgba(255, 255, 255, 0.5);
+            border: 0;
+            border-radius: 5px;
+            border-bottom: 2px solid #FFFFFF;
+            font-size: 20px;
+            padding: 4px;
+        }
+        .login-btn {
+            background-color: rgba(255, 255, 255, 0.5);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            border-radius: 5px;
+            font-size: 25px;
+            width: 100px;
+            padding: 5px;
+            color: white;
+            transition: background-color 0.5s ease;
+        }
+        .login-btn:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            border: 2px solid #FFFFFF;
+        }
+    </style>
+</html>
