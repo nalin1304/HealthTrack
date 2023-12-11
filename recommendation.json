@@ -1,0 +1,11 @@
+{
+  "underweight": {
+    "recommendation": "Consult with a healthcare professional or a nutritionist to create a balanced diet plan that includes a variety of nutrient-dense foods. Incorporate lean proteins, healthy fats, whole grains, fruits, and vegetables into your meals. Regular exercise, including strength training, can also help build muscle mass."
+  },
+  "overweight": {
+    "recommendation": "Aim for a gradual and sustainable weight loss by adopting a healthy diet and increasing physical activity. Focus on portion control, choose nutrient-dense foods, and engage in regular aerobic exercise and strength training."
+  },
+  "obese": {
+    "recommendation": "Seek guidance from a healthcare professional or a registered dietitian to develop a personalized weight loss plan. This may include a combination of dietary changes, increased physical activity, and behavior modification. "
+  }
+}

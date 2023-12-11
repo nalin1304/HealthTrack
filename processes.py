@@ -1,11 +1,13 @@
 import pymongo
+import json
 
 # Replace the connection string with your own MongoDB connection string
 client = pymongo.MongoClient("mongodb+srv://HealthTrack:HealthTrack@cluster0.azdhcau.mongodb.net/?retryWrites=true&w=majority")
 
 db = client["HealthTrack"]
 student_data = db["student_data"]
-
+with open ("recommendation.json") as f:
+  r = json.load(f)
 def bmi_calculator():
   students = student_data.find()
   for student in students:
@@ -21,13 +23,20 @@ def bmi_calculator():
     bmi_category = ""
     if bmi < 18.5:
       bmi_category = "Underweight"
+      recommendation = r["underweight"]["recommendation"]
     elif bmi >= 18.5 and bmi <= 24.9:
       bmi_category = "Normal"
+      recommendation = None
     elif bmi >= 25 and bmi <= 29.9:
       bmi_category = "Overweight"
+      recommendation = r["overweight"]["recommendation"]
     elif bmi >= 30:
       bmi_category = "Obese"
-    student_data.update_one({"_id":student["_id"]},{"$set":{"bmi_category":bmi_category, "bmi":bmi}})
+      recommendation = r["obese"]["recommendation"]
+    if recommendation == None:
+        student_data.update_one({"_id":student["_id"]},{"$set":{"bmi_category":bmi_category, "bmi":bmi}})
+    else:
+        student_data.update_one({"_id":student["_id"]},{"$set":{"bmi_category":bmi_category, "bmi":bmi},"$push":{"recommendation":recommendation}}, upsert=True)
     print(bmi_category)
   
 def avg_data_class(standard):

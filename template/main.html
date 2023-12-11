@@ -1,37 +1,23 @@
 <html>
   <head>
     <title>HealthTrack</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   </head>
   <body>
-    <center>
-      <div class="popup-data" id="popupData">
-        <div class="popup">
-          <h2>Student Data</h2>
-          <h3 class="name">Name: <b></b></h3>
-          <span class="class_popup">Class: <b></b></span><br>
-          <span class="age_popup">Age: <b></b></span><br>
-          <span class="bg">Blood Group: <b>ve</b></span><br>
-          <span class="height">Height: <b>"</b></span><br>
-          <span class="weight">Weight: <b> kg</b></span><br>
-          <span class="bmi">BMI: <b> </b></span><br>
-          <span class="bmi-category">BMI category: <b class="bmi-category-value"></b></span><br>
-          <span class="bp">Blood Pressure: <b></b></span><br>
-          <span class="pulse">Pulse: <b></b></span><br>
-          <span class="vision">Vision: <b></b></span><br>
-          <span class="ear">Ear: <b></b></span><br>
-          <span class="squint">Squint: <b></b></span><br>
-          <span class="throat">Throat: <b></b></span><br><br>
-          <center><button onclick="closePopup()">Close</button></center>
-        </div>
-      </div>
-    </center>
     <div class="whole-box">
     <div class="header">
-      <span><b>HealthTrack</b></span>
-    </div><br>
-    <center>
-    <div class="filters">
-        <label for="class"><b>Class:</b></label>
+      <div class="main-navbar">
+      <span onclick="window.location.href = '?';"><b>HealthTrack</b></span>
+      
+      <div class="searchbox">
+        
+          <input type="text" form="search-form" class="search" name="search" id="search" placeholder="Search"></i>
+          <button type="submit" form="search-form" class="search-btn"> <i class="fa-solid fa-magnifying-glass"></i> </button>
+        
+      </div>
+      <div class="filters">
+        <fieldset class="class-filter">
+          <legend><b>Class:</b></legend>
         <select class="class" name="class" id="class" onchange="filter_class()">
           <option value="none" selected disabled>None</option>
           <option value="9A">9A</option>
@@ -43,8 +29,9 @@
           <option value="10C">10C</option>
           <option value="10D">10D</option>
         </select>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <label for="age"><b>Age:</b></label>
+      </fieldset>
+      <fieldset class="class-filter">
+          <legend><b>Age:</b></legend>
         <select class="age" name="age" id="age" onchange="filter_age()">
           <option value="none" selected disabled>None</option>
           <option value="12">12</option> 
@@ -54,7 +41,13 @@
           <option value="16">16</option> 
           <option value="17">17</option> 
         </select>
+      </fieldset>
     </div>
+    </div>
+    <button class="logout-btn">LogOut</button>
+    </div>
+    <center>
+    
   </center>
     <div class="thumbnail-data">
       {% for student in students %}
@@ -70,6 +63,9 @@
   </div>
   </body>
   <style>
+    html {
+      overflow: hidden;
+    }
     body {
       font-family: ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;
       background-image: url("/static/blue-white background.webp");
@@ -80,15 +76,63 @@
       color: white;
       margin: 0;
     }
+    ::placeholder {
+      color: rgba(255, 255, 255, 0.70);
+    }
+   
     .whole-box{
       height: 100vh;
       overflow-y: scroll;
     }
     .header {
-      text-align: center;
-      font-size: 65px;
+      text-align: left;
+      font-size: 45px;
+      background-color: #68b0e430;
+      padding: 5px;
+      height: 70px;
+      border-bottom: 0.1px solid #68b0e489;
+      display: flex; 
+      
     }
-
+    .main-navbar {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+    }
+    .header span {
+      padding-left: 15px;
+      cursor: default;
+      user-select: none;
+    }
+    .searchbox {
+      align-self: center;
+      border: 2px solid white;
+      text-align: center;
+      display: flex;
+      height: 40px;
+      align-items: center;
+      padding: 5px;
+      border-radius: 15px;
+      background: rgba(255, 255, 255, 0.150);
+    }
+    .searchbox input {
+      border: none;
+      background-color: transparent;
+      color: white;
+      font-size: 20px;
+      height: 75%;
+    }
+    .searchbox input:focus {
+      outline: none;
+    }
+    .search-btn {
+      border: none;
+      background-color: transparent;
+      color: white;
+      font-size: 20px;
+      height: 75%;
+      cursor: pointer;
+    }
     .thumbnail {
       border-radius: 10px;
       width: 300px;
@@ -103,24 +147,85 @@
     .thumbnail:hover {
       background-color: #ff6a32;
     }
-    .filters {
-      padding-left: 30px;
-      padding-right: 30px;
-      padding-top: 10px;
-      padding-bottom: 10px;
-      border-radius: 10px;
-      width: fit-content;
-      border: 4px solid #151515;
-      font-size: 25px;
-      background-color: #151515e7;
-    }
-    .filters select {
-      background-color: #151515;
-      color: #FFFFFF;
-      border: none;
-      border-radius: 5px;
+    .class-filter {
+      border: 2px solid white;
+      border-radius: 15px;
+      height: 40px;
+      text-align: center;
       padding: 5px;
       font-size: 20px;
+      align-self: center;
+      display: flex;
+      align-items: center;
+    }
+    .class-filter select{
+      border: none;
+      background-color: transparent;
+      color: white;
+      font-size: 20px;
+      height:100%;
+    }
+    .class-filter legend {
+      font-size: 15px;
+    }
+    .class-filter option {
+      color: black;
+    }
+    .class-filter option:disabled {
+      color: #808080;
+    }
+    .filters {
+      display: flex;
+      align-items: center;
+      font-size: 20px;
+      height: 40px;
+      align-self: center;
+    }
+    .age-filter {
+      border: 2px solid white;
+      border-radius: 15px;
+      height: 40px;
+      text-align: center;
+      padding: 5px;
+      font-size: 20px;
+      align-self: center;
+      display: flex;
+      align-items: center;
+    }
+    .age-filter select{
+      border: none;
+      background-color: transparent;
+      color: white;
+      font-size: 20px;
+      height:100%;
+    }
+    .age-filter legend {
+      font-size: 15px;
+    }
+    .age-filter option {
+      color: black;
+    }
+    .age-filter option:disabled {
+      color: #808080;
+    }
+    .logout-btn {
+      align-self: center;
+      border: 2px solid white;
+      border-radius: 15px;
+      height: 40px;
+      text-align: center;
+      padding: 5px;
+      font-size: 20px;
+      align-items: center;
+      background-color: transparent;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.5s ease;
+      margin-left: 20px;
+    }
+    .logout-btn:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+      border: 2px solid #FFFFFF;
     }
     .thumbnail-data {
       display: grid; /* Use grid layout */
@@ -145,68 +250,32 @@
         grid-template-columns: repeat(1, 1fr);
       }
     }
-    .popup-data {
-        display: none;
-        position: fixed;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-        justify-content: center;
-        align-items: center;
-      }
-
-      .popup {
-        background-color: #151515;
-        color: #FFFFFF;
-        border-radius: 10px;
-        padding: 20px;
-        width: 23%;
-        height: max-content;
-        overflow-y: auto; /* Add this to enable scrolling inside the popup */
-        text-align: left;
-      }
-
-      /* Additional styles for the close button */
-      .popup button {
-        background-color: #ff8f66;
-        color: #000000;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 5px;
-        cursor: pointer;
-        text-align: center;
-      }
-      .popup h2{
-        text-align: center;
-      }
   </style>
   <script>
     function filter_class() {
         standard=document.getElementById("class").value;
         age = document.getElementById("age").value;
         if (standard!="none") {
-          window.location.href = "/?class="+standard;
+          window.location.href = "?class="+standard;
         }
         else if (age!="none") {
-          window.location.href = "/?age="+age+"&class="+standard;
+          window.location.href = "?age="+age+"&class="+standard;
         }
         else {
-          window.location.href = "/";
+          window.location.href = "?";
         }
     }
     function filter_age() {
         age = document.getElementById("age").value;
         standard=document.getElementById("class").value;
         if (age!="none") {
-          window.location.href = "/?age="+age;
+          window.location.href = "?age="+age;
         }
         else if (standard!="none") {
-          window.location.href = "/?class="+standard+"&age="+age;
+          window.location.href = "?class="+standard+"&age="+age;
         }
         else {
-          window.location.href = "/";
+          window.location.href = "?";
         }
     }
     var urlParams = new URLSearchParams(window.location.search);
@@ -214,6 +283,7 @@
     // Now you can access the parameters directly 
     var class_value = urlParams.get('class');
     var age_value = urlParams.get('age');
+    var search_value = urlParams.get('search');
 
     if (class_value!=null) {
       classSelect = document.getElementById("class");
@@ -247,56 +317,14 @@
         }
     }
   }
-    var students = {{students|safe|replace("ObjectId","")}}
-  function popup_student_data(data) {
-    console.log(students);
-    for (var i = 0; i < students.length; i++) {
-      var student = students[i];
-      console.log(student["_id"] == data);
-      if (student["_id"] == data) {
-        var dict_data = student
-        console.log(dict_data)
-        break;
-      }
-    }; 
-    console.log(dict_data);
-    console.log(data);
-    document.getElementsByClassName("popup-data")[0].style.display = "flex";
-    document.getElementsByClassName("name")[0].innerHTML = "Name: <b>"+dict_data["name"]+"</b>";
-    document.getElementsByClassName("class_popup")[0].innerHTML = "Class: <b>"+dict_data["class"]+"</b>";
-    document.getElementsByClassName("age_popup")[0].innerHTML = "Age: <b>"+dict_data["age"]+"</b>";
-    document.getElementsByClassName("bg")[0].innerHTML = "Blood Group: <b>"+dict_data["blood_group"]+"</b>";
-    document.getElementsByClassName("height")[0].innerHTML = "Height: <b>"+dict_data["height"]+"\"</b>";
-    document.getElementsByClassName("weight")[0].innerHTML = "Weight: <b>"+dict_data["weight"]+" kg</b>";
-    document.getElementsByClassName("bmi")[0].innerHTML = "BMI: <b>"+dict_data["bmi"]+"</b>";
-    document.getElementsByClassName("bmi-category-value")[0].innerHTML = dict_data["bmi_category"];
-    if (dict_data["bmi_category"]=="Underweight") {
-      document.getElementsByClassName("bmi-category-value")[0].style.color = "#FF0000";
-    }
-    else if (dict_data["bmi_category"]=="Normal") {
-      document.getElementsByClassName("bmi-category-value")[0].style.color = "#00FF00";
-    }
-    else if (dict_data["bmi_category"]=="Overweight") {
-      document.getElementsByClassName("bmi-category-value")[0].style.color = "#FFFF00";
-    }
-    else if (dict_data["bmi_category"]=="Obesity") {
-      document.getElementsByClassName("bmi-category-value")[0].style.color = "#FF0000";
-    }
-    document.getElementsByClassName("bp")[0].innerHTML = "Blood Pressure: <b>"+dict_data["blood_pressure"]+"</b>";
-    document.getElementsByClassName("pulse")[0].innerHTML = "Pulse: <b>"+dict_data["pulse"]+"</b>";
-    document.getElementsByClassName("vision")[0].innerHTML = "Vision: <b>"+dict_data["vision"]+"</b>";
-    document.getElementsByClassName("ear")[0].innerHTML = "Ear: <b>"+dict_data["ear"]+"</b>";
-    document.getElementsByClassName("squint")[0].innerHTML = "Squint: <b>"+dict_data["squint"]+"</b>";
-    document.getElementsByClassName("throat")[0].innerHTML = "Throat: <b>"+dict_data["thorat"]+"</b>";
+  if (search_value!=null) {
+    document.getElementById("search").value = search_value;
   }
-  function closePopup() {
-    document.getElementsByClassName("popup-data")[0].style.display = "none";
-  }
-  // it should only work when clicking outside the popup and not inside
-  document.getElementsByClassName("popup-data")[0].addEventListener("click", function(event) {
-    if (event.target == document.getElementsByClassName("popup-data")[0]) {
-      document.getElementsByClassName("popup-data")[0].style.display = "none";
+ 
+    function popup_student_data(id) {
+      window.location.href = "/student_data?id="+id;
     }
-  });
   </script>
+  <form id="search-form">
+  </form>
 </html>
