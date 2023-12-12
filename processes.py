@@ -14,11 +14,10 @@ def bmi_calculator():
     print(student)
     height = student["height"] # in feets and inches
     weight = student["weight"]
-    height = str(height).split("'")
-    inches = int(height[0])*12 + int(height[1])
-    height = inches * 0.0254
+    height = float(height)
+
     print(height, weight)
-    bmi = float(weight)/float(height)**2
+    bmi = float(weight)/((float(height)/100)**2)
     print(bmi)
     bmi_category = ""
     if bmi < 18.5:
@@ -33,10 +32,14 @@ def bmi_calculator():
     elif bmi >= 30:
       bmi_category = "Obese"
       recommendation = r["obese"]["recommendation"]
+    old_recommendation = student["recommendation"]
+    if old_recommendation == [recommendation]:
+      recommendation = None
     if recommendation == None:
         student_data.update_one({"_id":student["_id"]},{"$set":{"bmi_category":bmi_category, "bmi":bmi}})
     else:
-        student_data.update_one({"_id":student["_id"]},{"$set":{"bmi_category":bmi_category, "bmi":bmi},"$push":{"recommendation":recommendation}}, upsert=True)
+        student_data.update_one({"_id":student["_id"]},{"$set":{"bmi_category":bmi_category, "bmi":bmi,"recommendation":[recommendation]}}, upsert=True)
+
     print(bmi_category)
   
 def avg_data_class(standard):
@@ -52,10 +55,7 @@ def avg_data_class(standard):
     height = student["height"] # in feets and inches
     weight = student["weight"]
     bmi = student["bmi"]
-    height = str(height).split("'")
-    inches = int(height[0])*12 + int(height[1])
-    height = inches * 0.0254
-    height_sum += height
+    height_sum += float(height)/100
     weight_sum += float(weight)
     bmi_sum += bmi
     print(height, height_sum)
@@ -76,5 +76,11 @@ def avg_data_class(standard):
     avg_bmi_category = "Obese"
   db["average_data"].update_one({"class":standard},{"$set":{"avg_height":avg_height,"avg_weight":avg_weight,"avg_bmi":avg_bmi, "avg_bmi_category":avg_bmi_category}}, upsert=True)
   return avg_height
+
+
+def remove_all_recommendation():
+  students = student_data.find()
+  for student in students:
+    student_data.update_one({"_id":student["_id"]},{"$set":{"recommendation":[]}})
 
 bmi_calculator()

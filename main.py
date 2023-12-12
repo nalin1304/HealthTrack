@@ -74,4 +74,18 @@ def student_data_():
     print(student)
     return render_template("student_data.html", student=student)
 
+
+@app.route("/logout")
+def logout():
+    if session.get("user") == None:
+        return redirect("/auth")
+    session.pop("user")
+    try:
+        session.pop("id")
+    except:
+        pass
+    return redirect("/auth")
+
+
+
 app.run(host="0.0.0.0", port=8080, debug=True)

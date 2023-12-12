@@ -44,7 +44,9 @@
       </fieldset>
     </div>
     </div>
-    <button class="logout-btn">LogOut</button>
+
+    <button class="logout-btn" onclick="window.location.href = '/logout'">LogOut</button>
+
     </div>
     <center>
     
@@ -55,7 +57,7 @@
         <h2>{{student["name"]}}</h3>
         <span>Class: <b>{{student["class"]}}</b></span><br>
         <span>Age: <b>{{student["age"]}}</b></span><br>
-        <span>Height: <b>{{student["height"]}}"</b></span><br>
+        <span>Height: <b>{{student["height"]}}cm</b></span><br>
         <span>Weight: <b>{{student["weight"]}} kg</b></span>
       </div>
       {% endfor %}

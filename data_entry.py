@@ -24,7 +24,9 @@ def add_student_data(name, standard, age, weight, height, blood_group, blood_pre
         "allergies": allergies,
         "recommendation": []
     }
+
     student_data.insert_one(student)
+
 for i in range(0,15):
     print("General Details")
     name = input("Enter name: ")
