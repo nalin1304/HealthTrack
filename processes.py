@@ -83,4 +83,58 @@ def remove_all_recommendation():
   for student in students:
     student_data.update_one({"_id":student["_id"]},{"$set":{"recommendation":[]}})
 
-bmi_calculator()
+def add_user_data():
+  students = student_data.find()
+  user_data = db["user_data"]
+  for student in students:
+    un = student["name"].split(" ")
+    un = (un[0]+"."+un[-1]).lower()
+    check = list(user_data.find({"user":un}))
+    if len(check) == 0:
+      user_data.insert_one({"user":un,"password":"password@123","user_id":student["_id"]})
+    else:
+      print("Already exists")
+      print(un)
+    print("Inserted")
+
+def recommendations():
+  students = student_data.find()
+  for student in students:
+    print(student)
+    recommendation = []
+    pulse_category = "Normal"
+    pulse = student["blood"]["pulse"]
+    if int(pulse) > 100:
+      recommendation.append(r["high_pulse"]["recommendation"])
+      pulse_category = "High"
+    elif int(pulse) < 60:
+      recommendation.append(r["low_pulse"]["recommendation"])
+      pulse_category = "Low"
+    bp = student["blood"]["blood_pressure"]
+    bp = bp.split("/")
+    bp_category = "Normal"
+    if (int(bp[0]) >= 120) or (int(bp[1]) > 80):
+      recommendation.append(r["high_bp"]["recommendation"])
+      bp_category = "High"
+    elif (int(bp[0]) < 90) or (int(bp[1]) < 60):
+      recommendation.append(r["low_bp"]["recommendation"])
+      bp_category = "Low"
+    if student["recommendation"] != []:
+      recommendation += student["recommendation"]
+    blood = student["blood"]
+    blood["pulse_category"] = pulse_category
+    blood["bp_category"] = bp_category
+    student_data.update_one({"_id":student["_id"]},{"$set":{"recommendation":recommendation, "blood":blood}}, upsert=True)
+    print("Updated")
+
+def test():
+  #if vision field is 10/10 then change it into 6/6
+  students = student_data.find()
+  for student in students:
+    vision = student["vision"]
+    if vision == "10/10":
+      student_data.update_one({"_id":student["_id"]},{"$set":{"vision":"6/6"}})
+      print("Updated")
+    print(student)
+
+test()

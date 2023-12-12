@@ -1,11 +1,24 @@
 {
   "underweight": {
-    "recommendation": "Consult with a healthcare professional or a nutritionist to create a balanced diet plan that includes a variety of nutrient-dense foods. Incorporate lean proteins, healthy fats, whole grains, fruits, and vegetables into your meals. Regular exercise, including strength training, can also help build muscle mass."
+    "recommendation": "For underweight bmi, consult with a healthcare professional or a nutritionist to create a balanced diet plan that includes a variety of nutrient-dense foods. Incorporate lean proteins, healthy fats, whole grains, fruits, and vegetables into your meals. Regular exercise, including strength training, can also help build muscle mass."
   },
   "overweight": {
-    "recommendation": "Aim for a gradual and sustainable weight loss by adopting a healthy diet and increasing physical activity. Focus on portion control, choose nutrient-dense foods, and engage in regular aerobic exercise and strength training."
+    "recommendation": "For overweight bmi, aim for a gradual and sustainable weight loss by adopting a healthy diet and increasing physical activity. Focus on portion control, choose nutrient-dense foods, and engage in regular aerobic exercise and strength training."
   },
   "obese": {
-    "recommendation": "Seek guidance from a healthcare professional or a registered dietitian to develop a personalized weight loss plan. This may include a combination of dietary changes, increased physical activity, and behavior modification. "
-  }
+    "recommendation": "For obese bmi, seek guidance from a healthcare professional or a registered dietitian to develop a personalized weight loss plan. This may include a combination of dietary changes, increased physical activity, and behavior modification. "
+  },
+    "high_pulse": {
+      "recommendation": "For a consistently high pulse rate, consult with a healthcare professional for evaluation. Identify and address underlying causes, such as stress, anxiety, anemia, or heart conditions. Practice stress management techniques, limit caffeine intake, engage in regular aerobic exercise, and follow any prescribed treatments or medications as advised by your healthcare provider."
+    },
+    "low_pulse": {
+      "recommendation": "If experiencing symptoms of low pulse rate, such as dizziness or fatigue, consult with a healthcare professional for evaluation. Identify and address underlying causes, which may include heart conditions or medication side effects. Stay hydrated, engage in regular aerobic exercise, and follow your healthcare provider's recommendations for treatment, which may include medication or lifestyle modifications."
+    },
+    "high_bp": {
+      "recommendation": "For high blood pressure, consult with a healthcare professional to discuss lifestyle modifications and potential medication. Adopt a heart-healthy diet rich in fruits, vegetables, whole grains, lean proteins, and low-fat dairy. Limit sodium intake, engage in regular aerobic exercise, manage stress, and monitor blood pressure regularly."
+    },
+    "low_bp": {
+      "recommendation": "If experiencing symptoms of low blood pressure, such as dizziness or fainting, consult with a healthcare professional for evaluation. Increase fluid and salt intake, especially before standing up. Eat small, low-carbohydrate meals. Wear compression stockings if recommended. Avoid alcohol and limit caffeine consumption. If necessary, your healthcare provider may recommend medication."
+    }
+    
 }

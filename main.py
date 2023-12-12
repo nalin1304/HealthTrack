@@ -14,10 +14,10 @@ def check_auth():
     if session.get("user") == None:
         return False
     user_id= session.get("id")
-    user_data = user_data.find_one({"_id": ObjectId(user_id)})
-    if user_data == None:
+    user = user_data.find_one({"user_id": ObjectId(user_id)})
+    if user == None:
         return False
-    if user_data["user"] != session.get("user"):
+    if user["user"] != session.get("user"):
         return False
     return True
 
@@ -47,20 +47,18 @@ def auth():
     if request.method == "POST":
         user = request.form.get("user")
         pwd= request.form.get("pass")
-        print(user, pwd)
         if user == "admin" and pwd == "admin":
             session["user"] = user
-            print(session)
             return redirect("/dashboard")
         ud = user_data.find_one({"user": user.lower(), "password": pwd})
         if ud:
             session["user"] = user
-            session["id"] = str(ud["user_id"])
+            session["id"] = f'{ud["user_id"]}'.replace("ObjectId('","").replace("')","")
             return redirect("/home")
     return render_template("auth.html")
 @app.route("/home")
 def home():
-    if not check_auth:
+    if not check_auth():
         return redirect("/auth")
     sutdent = student_data.find_one({"_id": ObjectId(session.get("id"))})
     return render_template("home.html", student=sutdent)
@@ -71,7 +69,6 @@ def student_data_():
         return redirect("/auth")
     student_id = request.args.get("id")
     student = student_data.find_one({"_id": ObjectId(student_id)})
-    print(student)
     return render_template("student_data.html", student=student)
 
 
