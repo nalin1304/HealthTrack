@@ -39,6 +39,7 @@ def bmi_calculator():
         student_data.update_one({"_id":student["_id"]},{"$set":{"bmi_category":bmi_category, "bmi":bmi}})
     else:
         student_data.update_one({"_id":student["_id"]},{"$set":{"bmi_category":bmi_category, "bmi":bmi,"recommendation":[recommendation]}}, upsert=True)
+
     print(bmi_category)
   
 def avg_data_class(standard):

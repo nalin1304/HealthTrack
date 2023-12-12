@@ -26,7 +26,8 @@ def add_student_data(name, standard, age, weight, height, blood_group, blood_pre
     }
 
     student_data.insert_one(student)
-for i in range(0,16):
+
+for i in range(0,15):
     print("General Details")
     name = input("Enter name: ")
     standard = input("Enter class: ")
@@ -65,6 +66,6 @@ for i in range(0,16):
             "medication": allergy_medication,
         })
 
-    add_student_data(name,standard, age, weight, height, blood_group, blood_pressure, pulse, haemoglobin, tooth_cavity, gum_inflamation, tarter, gum_bleeding, plaque, stains, vision, ear, squint, throat, allergies)
+    add_student_data(name, standard, age, weight, height, blood_group, blood_pressure, pulse, haemoglobin, tooth_cavity, gum_inflamation, tarter, gum_bleeding, plaque, stains, vision, ear, squint, throat, allergies)
 
     print("Student added successfully! \n\n\n")
