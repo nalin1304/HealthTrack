@@ -3,6 +3,13 @@
 
     </head>
     <body>
+        <div clss="whole-box">
+        <div class="header">
+            <div class="main-navbar">
+            <span onclick="window.location.href = '/dashboard';"><b>HealthTrack</b></span>
+            </div>
+          </div>
+          <div class="main-body">
         <div class="login-box">
             <div class="login">
             <center>
@@ -15,6 +22,8 @@
                 </center>
             </div>
         </div>
+        </div>
+    </div>
     </body>
     <style>
         body {
@@ -26,21 +35,19 @@
             backdrop-filter: blur(30px);
             color: white;
             margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
         }
         .login-box{
             border-radius: 10px;
             display: flex;
             justify-content: center;
-            width: 400px;
-            height: 400px;
+            width: 450px;
+            height: 450px;
             background: #68B1E4;
             padding: 10px;
         }
         .login-box h3 {
             font-size: 50px;
+            margin-top: 0;
         }
         .login .user {
             background-color: rgba(255, 255, 255, 0.5);
@@ -72,5 +79,64 @@
             background-color: rgba(255, 255, 255, 0.2);
             border: 2px solid #FFFFFF;
         }
+        .logo-img{
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            padding: 3px;
+        }
+        .login-box h1{
+            font-size: 55px;
+            margin: 0;
+        }
+        .header {
+      text-align: left;
+      font-size: 45px;
+      background-color: #68b0e430;
+      padding: 5px;
+      height: 70px;
+      border-bottom: 0.1px solid #68b0e489;
+      display: flex; 
+      
+    }
+    .main-navbar {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+    }
+    .header span {
+      padding-left: 15px;
+      cursor: default;
+      user-select: none;
+    }
+    .logout-btn {
+      align-self: center;
+      border: 2px solid white;
+      border-radius: 15px;
+      height: 40px;
+      text-align: center;
+      padding: 5px;
+      font-size: 20px;
+      align-items: center;
+      background-color: transparent;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.5s ease;
+      margin-left: 20px;
+    }
+    .logout-btn:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+      border: 2px solid #FFFFFF;
+    }
+    .main-body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: calc(100% - 85px);
+    }
+    .login {
+        display: flex;
+        align-items: center;
+    }
     </style>
 </html>
